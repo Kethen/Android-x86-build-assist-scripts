@@ -1,0 +1,23 @@
+diff --git a/init.sh b/init.sh
+index ecdce3d..a9d3d1e 100644
+--- a/init.sh
++++ b/init.sh
+@@ -132,6 +132,9 @@ function init_hal_bluetooth()
+ function init_hal_camera()
+ {
+ 	case "$UEVENT" in
++		*81EK*)
++			set_prop_if_empty hal.camera.0 0,0
++			;;
+ 		*e-tabPro*)
+ 			set_prop_if_empty hal.camera.0 0,270
+ 			set_prop_if_empty hal.camera.2 1,90
+@@ -371,7 +374,7 @@ function init_tscal()
+ 		*ST70416-6*)
+ 			modprobe gslx680_ts_acpi
+ 			;&
+-		*T91*|*T101*|*ET2002*|*74499FU*|*945GSE-ITE8712*|*CF-19[CDYFGKLP]*|*TECLAST:rntPAD*)
++		*81EK*|*T91**|*T101*|*ET2002*|*74499FU*|*945GSE-ITE8712*|*CF-19[CDYFGKLP]*|*TECLAST:rntPAD*)
+ 			create_pointercal
+ 			return
+ 			;;

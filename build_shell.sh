@@ -7,7 +7,7 @@ do
 		do
 			if [ "$(echo $g | grep -E '\.apk$')" != "" ]
 			then
-				unzip -j "extras/$f/$g" lib/x86/* -d extras/$f
+				unzip -j -o "extras/$f/$g" lib/x86/* -d extras/$f
 				unzip -j -o "extras/$f/$g" lib/x86_64/* -d extras/$f
 			fi
 		done
