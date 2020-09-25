@@ -1,0 +1,32 @@
+diff --git a/init.sh b/init.sh
+index 706ddfb..45f3858 100644
+--- a/init.sh
++++ b/init.sh
+@@ -129,6 +129,9 @@ function init_hal_bluetooth()
+ function init_hal_camera()
+ {
+ 	case "$PRODUCT" in
++		*81EK*)
++			set_prop_if_empty hal.camera.0 0,0
++			;;
+ 		e-tab*Pro)
+ 			set_prop_if_empty hal.camera.0 0,270
+ 			set_prop_if_empty hal.camera.2 1,90
+@@ -374,7 +377,7 @@ function init_tscal()
+ 		*ST70416-6*)
+ 			modprobe gslx680_ts_acpi
+ 			;&
+-		*T91*|*T101*|*ET2002*|*74499FU*|*945GSE-ITE8712*|*CF-19[CDYFGKLP]*|*TECLAST:rntPAD*)
++		*81EK*|*T91*|*T101*|*ET2002*|*74499FU*|*945GSE-ITE8712*|*CF-19[CDYFGKLP]*|*TECLAST:rntPAD*)
+ 			create_pointercal
+ 			return
+ 			;;
+@@ -518,7 +521,7 @@ function do_bootcomplete()
+ 			alsa_amixer -c $c set 'Internal Mic Boost' 1
+ 		fi
+ 	done
+-
++	settings put global policy_control immersive.navigation=*
+ 	post_bootcomplete
+ }
+ 
