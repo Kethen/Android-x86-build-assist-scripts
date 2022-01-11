@@ -1,0 +1,6 @@
+finger print check might go off:
+frameworks/base
+	core/java/android/os/Build.java isBuildConsistent()
+
+vt is opened by surfaceflinger, inputflinger also handles the input from different vts
+framework/native/services
