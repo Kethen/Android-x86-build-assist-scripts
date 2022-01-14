@@ -3,7 +3,9 @@ frameworks/base
 	core/java/android/os/Build.java isBuildConsistent()
 
 vt is opened by surfaceflinger, inputflinger also handles the input from different vts
-framework/native/services
+framework/native/services, look for CONSOLE_MANAGER compile flag
+
+to entirely disable framebuffer console, do it in kernel config FRAMEBUFFER_CONSOLE VGA_CONSOLE
 
 kernel 5.10 can be found https://github.com/maurossi/linux, as well as mesa 20.1.0 https://github.com/maurossi/mesa
 changes has to be made to device/generic/common to use gcc 4.9 for the kernel build, see patch file 0001-Build-kernel-by-target-toolchain.patch
@@ -11,7 +13,6 @@ changes has to be made to device/generic/common to use gcc 4.9 for the kernel bu
 kernel 5.10 does not spawn /dev/input/event_ for the touchscreen for some reason
 needs to be investigated but here's a work around, add to init.sh
 cd /sys/class/input
-
 for f in event*
 do
         (
