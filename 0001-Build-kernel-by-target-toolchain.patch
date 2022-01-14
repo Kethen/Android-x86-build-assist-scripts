@@ -1,0 +1,34 @@
+From 91b9f829e3ff489da58c402d230f9864e391364c Mon Sep 17 00:00:00 2001
+From: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date: Sun, 26 Jul 2020 11:09:45 +0800
+Subject: [PATCH] Build kernel by target toolchain
+
+Instead of using the host toolchain gcc 4.6.
+---
+ build/tasks/kernel.mk | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/build/tasks/kernel.mk b/build/tasks/kernel.mk
+index f09d51c..f289009 100644
+--- a/build/tasks/kernel.mk
++++ b/build/tasks/kernel.mk
+@@ -29,16 +29,8 @@ ifeq ($(BUILD_KERNEL_WITH_CLANG),true)
+ CROSS_COMPILE := x86_64-linux-androidkernel-
+ KERNEL_CLANG_CLAGS := CC=clang HOSTCC=clang CLANG_TRIPLE=x86_64-linux-gnu- PATH=$(abspath $(LLVM_PREBUILTS_BASE)/$(BUILD_OS)-x86/$(LLVM_PREBUILTS_VERSION)/bin):$$PATH
+ else
+-ifeq ($(TARGET_KERNEL_ARCH),x86_64)
+-ifeq ($(HOST_OS),darwin)
+-CROSS_COMPILE ?= $(abspath prebuilts/gcc/darwin-x86/host/i686-apple-darwin-4.2.1/bin)/i686-apple-darwin11-
+-else
+-CROSS_COMPILE ?= $(abspath prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/bin)/x86_64-linux-
+-endif
+-else
+ CROSS_COMPILE ?= $(abspath $(TARGET_TOOLS_PREFIX))
+ endif
+-endif
+ 
+ KBUILD_OUTPUT := $(abspath $(TARGET_OUT_INTERMEDIATES)/kernel)
+ mk_kernel := + $(hide) $(MAKE) $(if $(filter darwin,$(HOST_OS)),-j$$(sysctl -n hw.ncpu) -l$$(($$(sysctl -n hw.ncpu)+2)),-j$$(nproc) -l$$(($$(nproc)+2))) \
+-- 
+2.7.4
+
