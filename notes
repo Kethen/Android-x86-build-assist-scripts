@@ -25,3 +25,8 @@ do
                 fi
         )
 done
+
+setprop ro.iio.accel.y.opt_scale -1
+setprop ro.iio.accel.quirks no-trig
+
+suspend can be disabled in /data/local.prop (system/core/init), with property sleep.state (system/core/libsuspend)
